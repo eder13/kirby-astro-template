@@ -38,6 +38,9 @@ RewriteRule ^kirby/(.*) index.php [L]
 # block README file
 RewriteRule ^README\.md - [F]
 
+# block the docs folder
+RewriteRule ^docs/ - [F]
+
 # make site links work
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
