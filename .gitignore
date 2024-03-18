@@ -23,8 +23,8 @@ Icon
 # (sensitive workspace files)
 # ---------------------------
 *.sublime-workspace
-/.vscode
-/.idea
+.vscode
+.idea
 
 # -------------SECURITY-------------
 # NEVER publish these files via Git!
