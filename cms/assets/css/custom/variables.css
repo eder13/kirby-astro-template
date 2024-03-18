@@ -1,0 +1,19 @@
+:root {
+    --navbar-height: 80px;
+
+    --fz-micro: 12px;
+    --fz-smallest: 14px;
+    --fz-small: 16px;
+    --fz-normal: 18px;
+    --fz-large: 24px;
+    --fz-largest: 32px;
+
+    --primary-color: #f77b3d;
+    --primary-color_rgb: 247, 123, 61;
+    --secondary-color: #335126;
+    --secondary-color_rgb: 51, 81, 38;
+    --dark-color: #333;
+    --dark-color_rgb: 55, 55, 55;
+    --light-color: #fff;
+    --light-color_rgb: 255, 255, 255;
+}
