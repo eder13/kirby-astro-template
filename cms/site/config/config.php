@@ -68,9 +68,9 @@ return [
                         ];
                     }
 
-                    $DELETE_CURRENT_INDEX = "echo '----- Step 3: Deleting old build files which are currently deployed -----' && cd .. && find . -mindepth 1 -regextype posix-extended ! -regex '(^\.\/\..*|^\.\/frontend.*|^\.\/cms.*|^\.\/tmp.*|^\.\/README.*)' -exec rm -rf {} + && echo 'done!' && echo '' 2>&1";
+                    $DELETE_CURRENT_INDEX = "echo '----- Step 3: Deleting old build files which are currently deployed -----' && cd .. && find . -mindepth 1 -regextype posix-extended ! -regex '(^\.\/\..*|^\.\/frontend.*|^\.\/cms.*|^\.\/tmp.*|^\.\/README.*|^\.\/docs.*)' -exec rm -rf {} + && echo 'done!' && echo '' 2>&1";
                     if (stripos(PHP_OS, 'LIN') !== 0) {
-                        $DELETE_CURRENT_INDEX = "echo '----- Step 3: Deleting old build files which are currently deployed -----' && cd .. && find -E . -mindepth 1 ! -regex '(^\.\/\..*|^\.\/frontend.*|^\.\/cms.*|^\.\/tmp.*|^\.\/README.*)' -exec rm -rf {} + && echo 'done!' && echo '' 2>&1";
+                        $DELETE_CURRENT_INDEX = "echo '----- Step 3: Deleting old build files which are currently deployed -----' && cd .. && find -E . -mindepth 1 ! -regex '(^\.\/\..*|^\.\/frontend.*|^\.\/cms.*|^\.\/tmp.*|^\.\/README.*|^\.\/docs.*)' -exec rm -rf {} + && echo 'done!' && echo '' 2>&1";
                     }
                     $output3 = null; 
                     $retval3 = null;
