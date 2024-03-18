@@ -1,12 +1,5 @@
 <?php
 
-/**
- * The config file is optional. It accepts a return array with config options
- * Note: Never include more than one return statement, all options go within this single return array
- * In this example, we set debugging to true, so that errors are displayed onscreen. 
- * This setting must be set to false in production.
- * All config options: https://getkirby.com/docs/reference/system/options
- */
 return [
     'debug' => true,
     'panel' => [
@@ -20,12 +13,16 @@ return [
         [
           'pattern' => 'ssg/deploy',
           'action'  => function () {
+                $payload = get();
+                $secret = $payload['secret'];
+
                 if (($user = kirby()->user()) && $user->isLoggedIn()) {
                     $env = parse_ini_file(__DIR__ . '/../../../.env');
                     $domain = $env["DOMAIN"];
+                    $deployment_key = $env["DEPLOYMENT_KEY"];
                     
-                    if (!($_SERVER['HTTP_HOST'] == "localhost" || strpos($_SERVER['HTTP_HOST'], $domain) != false)) {
-                        $errorMsg = "Invalid Domain: " . $_SERVER['HTTP_HOST'];
+                    if ($deployment_key != $secret || !($_SERVER['HTTP_HOST'] == "localhost" || strpos($_SERVER['HTTP_HOST'], $domain) != false)) {
+                        $errorMsg = "Error: Invalid Secret or Domain.";
                         
                         return [
                             'status' => 200,
@@ -116,7 +113,8 @@ return [
                 return [
                     'status' => 401 
                 ];
-            }
+            },
+            "method" => "POST"
         ]
     ]
 ];

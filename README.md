@@ -2,10 +2,11 @@
 
 ## Installation
 
-1. Create a .env file and specify the domain you want to publish like so:
+1. Create a .env file and specify the `DOMAIN` you want to publish as well as a `DEPLOYMENT_KEY` for security reasons:
 
 ```txt
 DOMAIN="my-website.com"
+DEPLOYMENT_KEY="my-secret-password"
 ```
 
 2. Install the Dependencies for Astro:

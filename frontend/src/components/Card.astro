@@ -1,7 +1,4 @@
 ---
-import EnvironmentHelper from '../helpers/EnvironmentHelper';
-import { Page } from '../types/pages';
-
 interface Props {
 	title: string;
 	body: string;
@@ -9,12 +6,6 @@ interface Props {
 }
 
 const { href, title, body } = Astro.props;
-
-// Example of data fetching with Astro - e.g. Homepage
-const response = await fetch(`${EnvironmentHelper.getFetchBaseURL()}${Page.HOME}`);
-const json = await response.json();
-
-console.log('json response', json);
 
 ---
 
