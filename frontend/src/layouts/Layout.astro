@@ -1,9 +1,13 @@
 ---
+import EnvironmentHelper from '../helpers/EnvironmentHelper';
+
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
+const baseUrl = EnvironmentHelper.getRootDomainURL();
+
 ---
 
 <!doctype html>
@@ -11,52 +15,52 @@ const { title } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="//TODO change me" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<link
             rel="preload"
-            href="./cms/assets/fonts/Montserrat_Alternates/montserrat-alternates-v17-latin-regular.woff2"
+            href={`${baseUrl}/cms/assets/css/fonts/Montserrat_Alternates/montserrat-alternates-v17-latin-regular.woff2`}
             as="font"
             type="font/woff2"
             crossorigin
         />
         <link
             rel="preload"
-            href="./cms/assets/fonts/Montserrat/montserrat-v26-latin-regular.woff2"
+            href={`${baseUrl}/cms/assets/css/fonts/Montserrat/montserrat-v26-latin-regular.woff2`}
             as="font"
             type="font/woff2"
             crossorigin
         />
         <link
             rel="preload"
-            href="./cms/assets/fonts/Montserrat/montserrat-v26-latin-600.woff2"
+            href={`${baseUrl}/cms/assets/css/fonts/Montserrat/montserrat-v26-latin-600.woff2`}
             as="font"
             type="font/woff2"
             crossorigin
         />
         <link
             rel="preload"
-            href="./cms/assets/fonts/Montserrat/montserrat-v26-latin-600italic.woff2"
+            href={`${baseUrl}/cms/assets/css/fonts/Montserrat/montserrat-v26-latin-600italic.woff2`}
             as="font"
             type="font/woff2"
             crossorigin
         />
         <link
             rel="preload"
-            href="./cms/assets/fonts/Montserrat/montserrat-v26-latin-800.woff2"
+            href={`${baseUrl}/cms/assets/css/fonts/Montserrat/montserrat-v26-latin-800.woff2`}
             as="font"
             type="font/woff2"
             crossorigin
         />
         <link
             rel="preload"
-            href="./cms/assets/fonts/Montserrat/montserrat-v26-latin-800italic.woff2"
+            href={`${baseUrl}/cms/assets/css/fonts/Montserrat/montserrat-v26-latin-800italic.woff2`}
             as="font"
             type="font/woff2"
             crossorigin
         />
-		<link rel="stylesheet" href="./cms/assets/css/custom/_root.css" />
+		<link rel="stylesheet" href={`${baseUrl}/cms/assets/css/custom/_root.css`} />
 		<title>{title}</title>
 	</head>
 	<body>

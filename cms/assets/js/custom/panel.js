@@ -5,6 +5,7 @@ const deployBtnText = "Veröffentlichen";
 const deployConfirmTextBtn = "Änderungen veröffentlichen 🚀";
 const deployConfirmWarningText =
     "Sind Sie sicher, dass sie die Änderungen <strong>jetzt</strong> veröffentlichen wollen? Dies kann kurzfristig dazu führen, dass die Seite nicht erreichbar ist, bis der Prozess abgeschlossen ist.";
+const deployIsDeployingLoaderText = "Deployment in Progress, please wait...";
 const deployConfirmTextRetryBtn = "Erneut versuchen";
 const deploySuccessMsg =
     "Die Änderungen wurden <strong>erfolgreich</strong> veröffentlicht! 🎉";
@@ -37,9 +38,14 @@ overlayConfirmation.innerHTML = /*html*/ `
         <button style="padding: 5px" id="close-deployment">x</button>
         <br/>
         <br/>
+        <br/>
+        <br/>
     </header>
     <article>
-        <p>${deployConfirmWarningText}</p>
+        <div class="alert warning" id="overlay-warning-info-text">${deployConfirmWarningText}</div>
+        <div class="alert info d-none" style="text-align: center" id="overlay-is-deploying-message">${deployIsDeployingLoaderText}</div>
+        <div class="alert success d-none" style="text-align: center" id="deploy-success">${deploySuccessMsg}</div>
+        <div class="alert danger d-none" style="text-align: center" id="deploy-failure"></div>
         <br/>
         <form id="form" style="display: grid; place-items: center">
           <br>
@@ -64,8 +70,6 @@ overlayConfirmation.innerHTML = /*html*/ `
         </form>
         <div style="display: grid; place-items: center">
             <div id="loader-deployment" class="deploy-loader d-none"></div>
-            <div class="alert success d-none" style="text-align: center" id="deploy-success">${deploySuccessMsg}</div>
-            <div class="alert danger d-none" style="margin-top: 1rem; text-align: center" id="deploy-failure"></div>
                 <input type="checkbox" style="height: 24px; background-color: #777;color: white;cursor: pointer;padding: 18px;width: 100%;border: none;text-align: left;outline: none;font-size: 15px;" class="d-none" id="deploy-collapsible-button">
                 <span style="transform: translateY(-16px)" class="arrow-right d-none" id="deploy-collapsible-icon-down"></span>
                 <span style="transform: translateY(-16px)" class="arrow-down d-none" id="deploy-collapsible-icon-up"></span>
@@ -101,6 +105,12 @@ deployBtnWrapper.appendChild(deployBtn);
 /**
  * Selectors
  */
+const overlayWarningText = overlayConfirmation.querySelector(
+    "#overlay-warning-info-text"
+);
+const overlayDeployingInProgress = overlayConfirmation.querySelector(
+    "#overlay-is-deploying-message"
+);
 const overlayForm = overlayConfirmation.querySelector("#form");
 const secretDeploymentKeyInput = overlayConfirmation.querySelector("#secret");
 const overlayConfirmationBtn = overlayConfirmation.querySelector(
@@ -132,9 +142,11 @@ function onClose() {
         overlayFailure.classList.add("d-none");
         overlayForm.classList.remove("d-none");
         secretDeploymentKeyInput.value = "";
+        overlayWarningText.classList.remove("d-none");
 
         overlayConfirmationBtn.classList.remove("d-none");
         overlayLoader.classList.add("d-none");
+        overlayDeployingInProgress.classList.add("d-none");
         overlayCollapsibleLogButton.classList.add("d-none");
         overlayCollapsibleIconDown.classList.add("d-none");
         overlayCollapsibleIconUp.classList.add("d-none");
@@ -154,6 +166,8 @@ function onDeployBtnClicked() {
     overlayCollapsibleIconUp.classList.add("d-none");
     overlayCollapsibleLogContent.classList.add("d-none");
     overlayLoader.classList.add("d-none");
+    overlayDeployingInProgress.classList.add("d-none");
+    overlayWarningText.classList.remove("d-none");
     overlayConfirmationBtn.textContent = deployConfirmTextBtn;
 }
 
@@ -164,6 +178,9 @@ overlayForm.addEventListener("submit", (e) => {
     e.preventDefault();
     e.target.classList.add("d-none");
     overlayLoader.classList.remove("d-none");
+    overlayDeployingInProgress.classList.remove("d-none");
+    overlayFailure.classList.add("d-none");
+    overlayWarningText.classList.add("d-none");
     overlayCollapsibleLogButton.classList.add("d-none");
     overlayCollapsibleIconDown.classList.add("d-none");
     overlayCollapsibleIconUp.classList.add("d-none");
@@ -183,9 +200,10 @@ overlayForm.addEventListener("submit", (e) => {
         })
         .then((json) => {
             overlayLoader.classList.add("d-none");
+            overlayDeployingInProgress.classList.add("d-none");
 
-            if (json.status !== 200) {
-                throw new Error("Failed to Deploy.", {
+            if (json.status === 401) {
+                throw new Error("Failed to Deploy, No Access Rights.", {
                     cause: deployFailedNoAccessRights,
                 });
             }
@@ -207,7 +225,7 @@ overlayForm.addEventListener("submit", (e) => {
 
                 overlayFailure.classList.add("d-none");
             } else {
-                throw new Error("Failed to Deploy.", {
+                throw new Error("Failed to Deploy, Internal Server Error.", {
                     cause: {
                         code: json.retval,
                         log:

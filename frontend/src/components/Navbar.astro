@@ -1,0 +1,43 @@
+---
+import type { HeaderEntry } from '../types/header';
+import { navHref } from '../utils/URLUtils';
+
+interface Props {
+    headerData: Array<HeaderEntry> | null
+}
+
+const { headerData } = Astro.props;
+
+---
+
+<nav>
+    <ul>
+        {headerData?.map(navLink => <li><a class:list={[navLink.active && 'active']} href={navHref(navLink.url)}>{navLink.title.value}</a></li>)}
+    </ul>
+</nav>
+
+<style>
+    nav {
+		position: fixed;
+		top: 0;
+		right: 0;
+        width: 100svw;
+        background-color: #fff;
+	}
+
+	nav ul {
+		list-style-type: none;
+		display: flex;
+	}
+
+	nav ul a {
+        font-family: 'Montserrat';
+		text-decoration: none;
+		color: black;
+		margin-right: 2rem;
+	}
+
+	nav ul .active {
+		text-decoration: underline;
+	}
+</style>

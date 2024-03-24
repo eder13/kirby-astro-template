@@ -1,0 +1,18 @@
+title: Home
+
+columns:
+  home:
+    label: Example
+    width: 1
+    sections:
+      home:
+        type: fields
+        fields:
+          headline:
+            label: Headline
+            type: text
+            width: 1/2
+          text:
+            label: Description
+            type: text
+            width: 1/2

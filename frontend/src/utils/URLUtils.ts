@@ -1,5 +1,5 @@
 import CommonConstants from "./../constants/common";
 
-export const href = (url: string) => {
+export const navHref = (url: string) => {
     return url.replace(CommonConstants.CMS_PREFIX, "");
 };

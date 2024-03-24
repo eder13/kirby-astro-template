@@ -1,0 +1,45 @@
+---
+import Navbar from '../components/Navbar.astro';
+import EnvironmentHelper from '../helpers/EnvironmentHelper';
+import Layout from '../layouts/Layout.astro';
+import { Page } from '../types/pages';
+import type { AboutResponse } from '../types/responses/about';
+
+const response = await fetch(`${EnvironmentHelper.getFetchBaseURL()}${Page.ABOUT}`);
+const json: AboutResponse = await response.json();
+
+---
+
+<Layout title="Welcome to the Kirby Astro Template">
+	<main>
+		<Navbar headerData={json.header} />
+
+		<h1>About</h1>
+		<p>
+			{json.page.text.value}
+		</p>
+	</main>
+</Layout>
+
+<style>
+	* {
+		font-family: 'Montserrat';
+	}
+
+	main {
+		margin: auto;
+		padding: 2rem 1rem;
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		font-size: 20px;
+		line-height: 1.6;
+	}
+
+	h1 {
+		font-size: 4rem;
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		margin-bottom: 1em;
+	}
+</style>

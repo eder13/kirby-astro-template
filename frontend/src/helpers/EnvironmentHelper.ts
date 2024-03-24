@@ -1,7 +1,11 @@
 import CommonConstants from "./../constants/common";
 
 export default class EnvironmentHelper {
-    static getFetchBaseURL(): string {
+    static getRootDomain(): string {
+        return import.meta.env.DOMAIN;
+    }
+
+    static getRootDomainURL(): string {
         const domain = import.meta.env.DOMAIN;
 
         let protocol = "https";
@@ -9,6 +13,10 @@ export default class EnvironmentHelper {
             protocol = "http";
         }
 
-        return `${protocol}://${domain}${CommonConstants.CMS_PREFIX}`;
+        return `${protocol}://${domain}`;
+    }
+
+    static getFetchBaseURL(): string {
+        return `${this.getRootDomainURL()}${CommonConstants.CMS_PREFIX}`;
     }
 }

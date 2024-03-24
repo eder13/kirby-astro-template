@@ -1,0 +1,14 @@
+title: About
+
+columns:
+  home:
+    label: About Example
+    width: 1
+    sections:
+      home:
+        type: fields
+        fields:
+          text:
+            label: About Page Text
+            type: text
+            width: 1/2

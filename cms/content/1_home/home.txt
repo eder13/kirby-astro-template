@@ -1,0 +1,9 @@
+Title: Home
+
+----
+
+Headline: Hello Kirby!
+
+----
+
+Text: This is an example on how you can get data from Kirby in Astro!

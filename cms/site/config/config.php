@@ -25,7 +25,7 @@ return [
                         $errorMsg = "Error: Invalid Secret or Domain.";
                         
                         return [
-                            'status' => 200,
+                            'status' => 401,
                             'message' => $errorMsg,
                             'retval' => 1,
                         ];
@@ -40,7 +40,7 @@ return [
                         $ASTRO_BUILD_FAILED = "echo '----- Step 1: Generating Astro build with NodeJS failed.-----' && echo ''";
                         
                         return [
-                            'status' => 200,
+                            'status' => 500,
                             'message' => $output,
                             'retval' => $retval,
                         ];
@@ -62,7 +62,7 @@ return [
                         exec($CLEANUP_BACKUP, $output_failed, $retval_failed);
 
                         return [
-                            'status' => 200,
+                            'status' => 500,
                             'message' => array_merge($output, $output2, $output_failed),
                             'retval' => $retval2,
                         ];
@@ -81,7 +81,7 @@ return [
                         exec($CLEANUP_DELETE, $output_failed, $retval_failed);
 
                         return [
-                            'status' => 200,
+                            'status' => 500,
                             'message' => array_merge($output, $output2, $output3, $output_failed),
                             'retval' => $retval3,
                         ];
@@ -97,7 +97,7 @@ return [
                         exec($CLEANUP_MOVE, $output_failed, $retval_failed);
 
                         return [
-                            'status' => 200,
+                            'status' => 500,
                             'message' => array_merge($output, $output2, $output3, $output4, $output_failed),
                             'retval' => $retval4,
                         ];
